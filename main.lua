@@ -20,7 +20,7 @@ SMODS.Joker {
           "{C:inactive} Get them some Spare Trousers!"
         }
       },
-    config = { extra = { mult = 0.1, mult_gain = 0.1}},
+    config = { extra = { Xmult = 0.1, Xmult_gain = 0.1}},
     rarity = 3,
     atlas = 'Clovermod',
     pos = { x = 0, y = 0 }, --TODO: add correct cords after sprites finished
@@ -36,7 +36,7 @@ SMODS.Joker {
         if context.joker_main then
           return {
             mult_mod = card.ability.extra.Xmult,
-            message = localize { type = 'variable', key = 'a_mult', vars = { card.ability.extra.Xmult } }
+            message = localize { type = 'variable', key = 'a_Xmult', vars = { card.ability.extra.Xmult } }
           }
         end 
     
