@@ -68,4 +68,4 @@ SMODS.Joker {
         {id = 'lodog'},
         {id = 'j_blueprint'},
     }
-} ]]--
+} TODO: Figure out why my modded joker breaks SMODS.Challenge]]--
