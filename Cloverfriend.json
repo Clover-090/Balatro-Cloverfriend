@@ -2,7 +2,7 @@
 	"id": "Cloverfriend",
 	"name": "Cloverfriend",
 	"display_name": "Clover's mod for friends",
-	"author": ["Clover"],
+	"author": ["Clover, Qrst"],
 	"description": "Heavy wip atm",
 	"prefix": "clov",
 	"main_file": "main.lua",
