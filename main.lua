@@ -27,7 +27,7 @@ SMODS.Joker {
     eternal_compat = true,
     perishable_compat = false,
     atlas = 'Clovermod',
-    pos = { x = 0, y = 0 }, --TODO: add correct cords after sprites finished
+    pos = { x = 0, y = 0 }, --TODO: add correct cords after sprites are finished
     cost = 8,
     unlocked = false,
     unlock_condition = {type = 'win_deck', deck = 'b_plasma'},
@@ -61,6 +61,49 @@ SMODS.Joker {
             end
 
 } 
+
+SMODS.Joker {
+    key = 'Hypothetical',
+    loc_txt = {
+        name = 'Hypothetical Joker',
+        text = {
+          "After each {C:attention}Boss Blind{}",
+          "spawn a {C:attention}negitive hanged man card" --This will change once I'm more knowlegeable of LUA
+          
+        }
+      },
+    config = {extra = {}},
+    rarity = 3,
+    blueprint_compat = true,
+    eternal_compat = true,
+    perishable_compat = true,
+    atlas = 'Clovermod',
+    pos = { x = 0, y = 0 }, --TODO: add correct cords after sprites are finished
+    cost = 10,
+    unlocked = false,
+    unlock_condition = {type = 'win_deck', deck = 'b_checkered'},
+
+    loc_vars = function(self, info_queue, card)
+		info_queue[#info_queue + 1] = G.P_CENTERS.e_negative
+	end,
+
+    calculate = function(self, card, context)
+        if context.end_of_round and G.GAME.blind.boss and (not context.individual) and (not context.repetition) then
+            G.E_MANAGER:add_event(Event({
+                func = function()
+                    local card = create_card('Tarot', G.consumeables, nil, 0, 0, 0, 'c_hanged_man')
+                    card:set_edition({negative = true}, true, true)
+                    card:add_to_deck()
+                    G.consumeables:emplace(card)
+					    return true
+				    end
+          
+        
+}))
+end
+end
+}
+
 
 --[[ SMODS.Challenge {
     key = 'testchallenge',
