@@ -88,19 +88,21 @@ SMODS.Joker {
 	end,
 
     calculate = function(self, card, context)
-        if context.end_of_round and G.GAME.blind.boss
+        if context.end_of_round and G.GAME.blind.boss and (not context.individual) and (not context.repetition) then
             G.E_MANAGER:add_event(Event({
                 func = function()
-                    local card = create_card('Tarot',G.consumeables, nil, nil, nil, nil, nil, c_death)
+                    local card = create_card('Tarot', G.consumeables, nil, 0, 0, 0, 'c_hanged_man')
                     card:set_edition({negative = true}, true, true)
                     card:add_to_deck()
                     G.consumeables:emplace(card)
 					    return true
 				    end
-                end
-            end
+          
+        
+}))
+end
+end
 }
-
 
 
 --[[ SMODS.Challenge {
