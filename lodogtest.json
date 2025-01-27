@@ -1,0 +1,16 @@
+{
+	"id": "lodogtest",
+	"name": "LoDog Joker Test",
+	"display_name": "DogTest",
+	"author": ["Clover"],
+	"description": "A test of getting the damn thing detected and showing up",
+	"prefix": "clov",
+	"main_file": "main.lua",
+	"priority": 0,
+	"badge_colour": "FF230A",
+	"badge_text_colour": "ABC123",
+	"version": "0.0.1",
+	"dependencies": [
+        "Steamodded (>=1.*)"
+    ]
+}
