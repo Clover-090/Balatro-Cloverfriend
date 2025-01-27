@@ -23,6 +23,9 @@ SMODS.Joker {
       },
     config = { extra = { mult = 1, mult_gain = 10}},
     rarity = 3,
+    blueprint_compat = true,
+    eternal_compat = true,
+    perishable_compat = false,
     atlas = 'Clovermod',
     pos = { x = 0, y = 0 }, --TODO: add correct cords after sprites finished
     cost = 8,
@@ -42,10 +45,10 @@ SMODS.Joker {
         end 
     
         
-        if context.scoring_name == "Two Pair" and not context.blueprint then
+        if context.scoring_name == "Two Pair" and not context.blueprint then --checks to see what hand is being scored and makes sure blueprint or brainstorm wont copy upgrade
             if context.individual and context.cardarea == G.play then
-                if context.other_card:is_face() then
-                        card.ability.extra.mult = card.ability.extra.mult + card.ability.extra.mult_gain
+                if context.other_card:is_face() then --checks to see if there are face cards
+                        card.ability.extra.mult = card.ability.extra.mult + card.ability.extra.mult_gain --scales mult
                             return {
                                 message = 'Upgraded!',
                                 colour = G.C.Mult,
@@ -69,3 +72,4 @@ SMODS.Joker {
         {id = 'j_blueprint'},
     }
 } ]]--
+ --TODO, find out why custom jokers break Center(whatever that is?)
