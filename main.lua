@@ -59,7 +59,7 @@ SMODS.Joker {
 
 } --TODO: This shit dont fucking work, score doesn't scale, figure out why.
 
-SMODS.Challenge {
+--[[ SMODS.Challenge {
     key = 'testchallenge',
     loc_txt = {
         name = 'Joker testing deck',
@@ -68,4 +68,4 @@ SMODS.Challenge {
         {id = 'lodog'},
         {id = 'j_blueprint'},
     }
-}
+} ]]--
