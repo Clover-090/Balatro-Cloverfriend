@@ -13,14 +13,15 @@ SMODS.Joker {
     loc_txt = {
         name = 'Unfortunatly Placed Dog',
         text = {
-          "Gains {X:mult,C:white}X0.1 Mult",
-          "for each scoring face card",
-          "if hand is a {C:attention}Two Pair{}",
-          "{C:inactive}(Currently {X:mult,C:white}X#0.1# {C:inactive} Mult)",
+          "Gains {C:mult}+10 Mult",
+          "if played hand",
+          "is a {C:attention}Two Pair{}",
+          "and has a non-scoring card.",
+          "{C:inactive}(Currently {C:mult}+#1# {C:inactive} Mult)",
           "{C:inactive} Get them some Spare Trousers!"
         }
       },
-    config = { extra = { Xmult = 1, Xmult_gain = 0.1}},
+    config = { extra = { mult = 1, mult_gain = 10}},
     rarity = 3,
     atlas = 'Clovermod',
     pos = { x = 0, y = 0 }, --TODO: add correct cords after sprites finished
@@ -29,26 +30,26 @@ SMODS.Joker {
     unlock_condition = {type = 'win_deck', deck = 'b_plasma'},
 
     loc_vars = function(self, info_queue, card)
-        return { vars = { card.ability.extra.Xmult, card.ability.extra.Xmult_gain } }
+        return { vars = { card.ability.extra.mult, card.ability.extra.mult_gain } }
     end,
 
     calculate = function(self, card, context)
         if context.joker_main then
           return {
-            mult_mod = card.ability.extra.Xmult,
-            message = localize { type = 'variable', key = 'a_xmult', vars = { card.ability.extra.Xmult } }
+            mult_mod = card.ability.extra.mult,
+            message = localize { type = 'variable', key = 'a_mult', vars = { card.ability.extra.mult } }
           }
         end 
     
         
-        if context.before and next(context.poker_hands['Two Pair']) and not context.blueprint then
+        if context.scoring_name == "Two Pair" and not context.blueprint then
             if context.individual and context.cardarea == G.play then
-                if context.othercard:is_face() then
-                        card.ability.extra.Xmult = card.ability.extra.Xmult + card.ability.extra.Xmult_gain
+                if context.other_card:is_face() then
+                        card.ability.extra.mult = card.ability.extra.mult + card.ability.extra.mult_gain
                             return {
                                 message = 'Upgraded!',
-                                colour = G.C.XMult,
-                                card = card
+                                colour = G.C.Mult,
+                                
                             }
                             end
                         
@@ -67,4 +68,4 @@ SMODS.Joker {
         {id = 'lodog'},
         {id = 'j_blueprint'},
     }
-} TODO: Figure out why my modded joker breaks SMODS.Challenge]]--
+} ]]--
