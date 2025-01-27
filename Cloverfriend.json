@@ -1,9 +1,9 @@
 {
-	"id": "lodogtest",
-	"name": "LoDog Joker Test",
-	"display_name": "DogTest",
+	"id": "Cloverfriend",
+	"name": "Cloverfriend",
+	"display_name": "Clover's mod for friends",
 	"author": ["Clover"],
-	"description": "A test of getting the damn thing detected and showing up",
+	"description": "Heavy wip atm",
 	"prefix": "clov",
 	"main_file": "main.lua",
 	"priority": 0,
