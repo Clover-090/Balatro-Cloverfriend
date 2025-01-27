@@ -27,7 +27,7 @@ SMODS.Joker {
     eternal_compat = true,
     perishable_compat = false,
     atlas = 'Clovermod',
-    pos = { x = 0, y = 0 }, --TODO: add correct cords after sprites finished
+    pos = { x = 0, y = 0 }, --TODO: add correct cords after sprites are finished
     cost = 8,
     unlocked = false,
     unlock_condition = {type = 'win_deck', deck = 'b_plasma'},
@@ -61,6 +61,30 @@ SMODS.Joker {
             end
 
 } 
+
+SMODS.Joker {
+    key = 'Hypothetical',
+    loc_txt = {
+        name = 'Hypothetical Joker',
+        text = {
+          "After each Boss Blind",
+          "spawn a hanged man card" --This will change once I'm more knowlegeable of LUA
+          
+        }
+      },
+    config = {},
+    rarity = 3,
+    blueprint_compat = true,
+    eternal_compat = true,
+    perishable_compat = true,
+    atlas = 'Clovermod',
+    pos = { x = 0, y = 0 }, --TODO: add correct cords after sprites are finished
+    cost = 8,
+    unlocked = false,
+    unlock_condition = {type = 'win_deck', deck = 'b_checkered'},
+}
+
+
 
 --[[ SMODS.Challenge {
     key = 'testchallenge',
