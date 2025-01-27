@@ -57,7 +57,7 @@ SMODS.Joker {
                 end
             end
 
-} --TODO: This shit dont fucking work, score doesn't scale, figure out why.
+} 
 
 --[[ SMODS.Challenge {
     key = 'testchallenge',
