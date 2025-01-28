@@ -1,15 +1,15 @@
 SMODS.Atlas {
     key = "PlaceHolder",
     path = "PlaceHolder.png",
-    px = 71,
-    py = 95
+    px = 95,
+    py = 71
 }
 
 SMODS.Atlas {
     key = "hypothetical",
     path = "hypothetical.png",
-    px = 71,
-    py = 95
+    px = 95,
+    py = 71
 }
 
 SMODS.Joker {
