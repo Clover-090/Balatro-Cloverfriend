@@ -1,10 +1,14 @@
 SMODS.Atlas {
-    key = "Clovermod",
-    -- The name of the file, for the code to pull the atlas from
-    path = "Clovermod.png",
-    -- Width of each sprite in 1x size
+    key = "PlaceHolder",
+    path = "PlaceHolder.png",
     px = 71,
-    -- Height of each sprite in 1x size
+    py = 95
+}
+
+SMODS.Atlas {
+    key = "hypothetical",
+    path = "hypothetical.png",
+    px = 71,
     py = 95
 }
 
@@ -25,7 +29,7 @@ SMODS.Joker {
     blueprint_compat = true,
     eternal_compat = true,
     perishable_compat = false,
-    atlas = 'Clovermod',
+    atlas = 'PlaceHolder',
     pos = { x = 0, y = 0 }, --TODO: add correct cords after sprites are finished
     cost = 8,
     unlocked = false,
@@ -76,7 +80,7 @@ SMODS.Joker {
     blueprint_compat = true,
     eternal_compat = true,
     perishable_compat = true,
-    atlas = 'Clovermod',
+    atlas = 'hypothetical',
     pos = { x = 0, y = 0 }, --TODO: add correct cords after sprites are finished
     cost = 10,
     unlocked = false,
@@ -102,6 +106,7 @@ SMODS.Joker {
 end
 end
 }
+
 
 
 --[[ SMODS.Challenge {
