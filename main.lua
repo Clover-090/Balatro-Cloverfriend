@@ -86,9 +86,7 @@ SMODS.Joker {
     unlocked = false,
     unlock_condition = {type = 'win_deck', deck = 'b_checkered'},
 
-    loc_vars = function(self, info_queue, card)
-		info_queue[#info_queue + 1] = G.P_CENTERS.e_negative
-	end,
+
 
     calculate = function(self, card, context)
         if context.end_of_round and G.GAME.blind.boss and (not context.individual) and (not context.repetition) then
