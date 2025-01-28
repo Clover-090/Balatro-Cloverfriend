@@ -14,9 +14,8 @@ SMODS.Joker {
         name = 'Unfortunatly Placed Dog',
         text = {
           "Gains {C:mult}+10 Mult",
-          "if played hand",
-          "is a {C:attention}Two Pair{}",
-          "and has a non-scoring card.",
+          "For each face card within",
+          "a {C:attention}Two Pair{}",
           "{C:inactive}(Currently {C:mult}+#1# {C:inactive} Mult)",
           "{C:inactive} Get them some Spare Trousers!"
         }
