@@ -8,8 +8,8 @@ SMODS.Atlas {
 SMODS.Atlas {
     key = "hypothetical",
     path = "hypothetical.png",
-    px = 178,
-    py = 238
+    px = 71,
+    py = 95
 }
 
 SMODS.Joker {
