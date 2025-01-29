@@ -22,15 +22,19 @@ SMODS.Joker {
           "a {C:attention}Two Pair{}",
           "{C:inactive}(Currently {C:mult}+#1# {C:inactive} Mult)",
           "{C:inactive} Get them some Spare Trousers!"
+        },
+        unlock = {
+            'Win any stake on', '{C:attention}Plasma Deck{}'
         }
       },
+
     config = { extra = { mult = 1, mult_gain = 10}},
     rarity = 3,
     blueprint_compat = true,
     eternal_compat = true,
     perishable_compat = false,
-    atlas = 'PlaceHolder',
-    pos = { x = 0, y = 0 }, --TODO: add correct cords after sprites are finished
+    atlas = 'PlaceHolder', --Add Correct Atlas once sprite is finished
+    pos = { x = 0, y = 0 }, 
     cost = 8,
     unlocked = false,
     unlock_condition = {type = 'win_deck', deck = 'b_plasma'},
@@ -72,17 +76,19 @@ SMODS.Joker {
         text = {
           "After each {C:attention}Boss Blind{}",
           "spawn a {C:attention}negitive hanged man card" --This will change once I'm more knowlegeable of LUA
-          
+        },
+        unlock = {
+        'Win any stake on', '{C:attention}Checkered Deck{}'
         }
       },
     config = {extra = {}},
-    rarity = 3,
+    rarity = 1,
     blueprint_compat = true,
     eternal_compat = true,
     perishable_compat = true,
     atlas = 'hypothetical',
-    pos = { x = 0, y = 0 }, --TODO: add correct cords after sprites are finished
-    cost = 10,
+    pos = { x = 0, y = 0 }, 
+    cost = 3,
     unlocked = false,
     unlock_condition = {type = 'win_deck', deck = 'b_checkered'},
 
@@ -106,15 +112,4 @@ end
 }
 
 
-
---[[ SMODS.Challenge {
-    key = 'testchallenge',
-    loc_txt = {
-        name = 'Joker testing deck',
-    }
-    jokers = {
-        {id = 'lodog'},
-        {id = 'j_blueprint'},
-    }
-} ]]--
- --TODO, find out why custom jokers break Center(whatever that is?)
+--TODO, find out why custom jokers break Center when trying to make custom challenges(whatever that is?)
