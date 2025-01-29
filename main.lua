@@ -20,7 +20,7 @@ SMODS.Joker {
           "Gains {C:mult}+10 Mult",
           "For each face card within",
           "a {C:attention}Two Pair{}",
-          "{C:inactive}(Currently {C:mult}+#1# {C:inactive} Mult)",
+          "{C:inactive}(Currently {C:mult}+#1# {C:inactive} Mult",
           "{C:inactive} Get them some Spare Trousers!"
         },
         unlock = {
@@ -59,7 +59,7 @@ SMODS.Joker {
                             return {
                                 message = 'Upgraded!',
                                 colour = G.C.Mult,
-                                
+                                card = card
                             }
                             end
                         
@@ -102,13 +102,69 @@ SMODS.Joker {
                     card:set_edition({negative = true}, true, true)
                     card:add_to_deck()
                     G.consumeables:emplace(card)
-					    return true
+                    return true
 				    end
           
         
 }))
 end
 end
+}
+
+
+
+
+SMODS.Joker {
+
+    key = 'addictive',
+    loc_txt = {
+        name = 'Addictive Joker',
+        text = {
+          "gains {X:mult,C:white}X0.1{} Mult for each {C:attention}Straight{} played.",
+          "{C:inactive}Currently {X:mult,C:white}X#1# {C:inactive} Mult" 
+        },
+        unlock = {
+        "Win any stake on", "{C:attention}Plasma Deck{}"
+        }
+      },
+
+    config = {extra = {Xmult = 1, Xmult_gain = 0.1}},
+    rarity = 3,
+    blueprint_compat = true,
+    eternal_compat = true,
+    perishable_compat = false,
+    atlas = 'PlaceHolder',
+    pos = {x = 0, y = 0},
+    cost = 5,
+    unlocked = false,
+    unlock_condition = {type = 'win_deck', deck = 'b_plasma'},
+
+    loc_vars = function(self, info_queue, card)
+        return { vars = { card.ability.extra.Xmult, card.ability.extra.Xmult_gain } }
+    end,
+
+    calculate = function(self, card, context)
+        if context.joker_main then
+        return {
+            Xmult_mod = card.ability.extra.Xmult,
+            message = localize { type = 'variable', key = 'a_mult', vars = { card.ability.extra.Xmult } }
+        }
+        end 
+
+        if context.before and next(context.poker_hands['Straight']) and not context.blueprint then
+            card.ability.extra.Xmult = card.ability.extra.Xmult + card.ability.extra.Xmult_gain --scales XMult
+                                return {
+                                    message = 'Upgraded!',
+                                    colour = G.C.Xmult,
+                                    card = card
+                                    }
+                                end
+                            end
+                        
+
+
+
+
 }
 
 
