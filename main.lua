@@ -122,7 +122,7 @@ SMODS.Joker {
         text = {
           "gains {X:mult,C:white}X0.1{} Mult for each {C:attention}Straight{} played.",
           "{C:inactive}Currently {X:mult,C:white}X#1# {C:inactive} Mult",
-          "{C:inactive}9 hours straight"
+          "{C:inactive}9 hours straight play session"
         },
         unlock = {
         "Win any stake on", "{C:attention}Plasma Deck{}"
