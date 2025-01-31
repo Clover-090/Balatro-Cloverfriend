@@ -12,6 +12,13 @@ SMODS.Atlas {
     py = 95
 }
 
+SMODS.Atlas {
+    key = "BIGBILL",
+    path = "BIGBILL.png",
+    px = 71,
+    py = 95
+}
+
 SMODS.Joker {
     key = 'lodog',
     loc_txt = {
@@ -38,6 +45,10 @@ SMODS.Joker {
     cost = 8,
     unlocked = false,
     unlock_condition = {type = 'win_deck', deck = 'b_plasma'},
+
+    set_badges = function(self, card, badges)
+        badges[#badges+1] = create_badge('Loker', G.C.WHITE, G.C.RED, 1.2 )
+    end,
 
     loc_vars = function(self, info_queue, card)
         return { vars = { card.ability.extra.mult, card.ability.extra.mult_gain } }
@@ -92,6 +103,9 @@ SMODS.Joker {
     unlocked = false,
     unlock_condition = {type = 'win_deck', deck = 'b_checkered'},
 
+    set_badges = function(self, card, badges)
+        badges[#badges+1] = create_badge('Moker', G.C.RED, G.C.WHITE, 1.2 )
+    end,
 
 
     calculate = function(self, card, context)
@@ -104,6 +118,7 @@ SMODS.Joker {
                     G.consumeables:emplace(card)
                     return true
 				    end
+                    
           
         
 }))
@@ -122,7 +137,7 @@ SMODS.Joker {
         text = {
           "gains {X:mult,C:white}X0.1{} Mult for each {C:attention}Straight{} played.",
           "{C:inactive}Currently {X:mult,C:white}X#1# {C:inactive} Mult",
-          "{C:inactive}9 hours straight play session"
+          "{C:inactive}Played more than 9 hours straight"
         },
         unlock = {
         "Win any stake on", "{C:attention}Plasma Deck{}"
@@ -139,6 +154,10 @@ SMODS.Joker {
     cost = 5,
     unlocked = false,
     unlock_condition = {type = 'win_deck', deck = 'b_plasma'},
+
+    set_badges = function(self, card, badges)
+        badges[#badges+1] = create_badge('Loker', G.C.WHITE, G.C.RED, 1.2 )
+    end,
 
     loc_vars = function(self, info_queue, card)
         return { vars = { card.ability.extra.Xmult, card.ability.extra.Xmult_gain } }
@@ -166,6 +185,35 @@ SMODS.Joker {
 
 
 
+}
+
+
+SMODS.Joker {
+
+    key='FUCKYOUBALTIMORE',
+    loc_txt = {
+              name = "FUCK YOU BALTIMORE",
+              text = {"If youre dumb enough to buy a new car this weekend, youre a big enough schmuck to come to Big Bill Hells Cars!", 'Bad deals! Cars that break down! Thieves!', 'If you think youre going to find a bargain at Big Bills, you can kiss my ass!', 'Its our belief that youre such a stupid motherfucker, youll fall for this bullshit—guaranteed!', 'If you find a better deal, shove it up your ugly ass!', 'You heard us right!', 'Shove it up your ugly ass!', 'Bring your trade! Bring your title! Bring your wife!', 'Well fuck her!', 'Thats right! We will fuck your wife!', 'Because at Big Bill Hells, youre fucked six ways from Sunday!', 'Take a hike to Big Bill Hells—Home of Challenge Pissing!', 'Thats right! Challenge Pissing!', 'How does it work?', 'If you can piss six feet in the air straight up and not get wet, you get no down payment!', 'Dont wait! Dont delay! Dont fuck with us, or well rip your nuts off!', 'Only at Big Bill Hells, the only dealer that tells you to fuck off!', 'Hurry up, asshole!', 'This event ends the minute after you write us a cheque, and it better not bounce or youre a dead motherfucker!', 'Go to hell—Big Bill Hells Cars!', "Baltimores filthiest and exclusive home of the meanest sons-of-bitches in the state of Maryland! guaranteed!"}
+            },
+    config = {extra = {}},
+        rarity = 1,
+        blueprint_compat = false,
+        eternal_compat = true,
+        perishable_compat = false,
+        atlas = 'BIGBILL',
+        pos = {x = 0, y = 0},
+        cost = 0,
+        allow_duplicates = true,
+        
+        
+        set_card_type_badge = function(self, card, badges)
+            badges[#badges+1] = create_badge('USELESS', G.C.RED, G.C.BLACK, 1.2 )
+        end,
+        loc_vars = function(self, info_queue, card)
+            card = card
+            info_queue[#info_queue + 1] = card:set_eternal(true)
+            
+        end,
 }
 
 
