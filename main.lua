@@ -19,6 +19,14 @@ SMODS.Atlas {
     py = 95
 }
 
+SMODS.Atlas {
+    key = "Addictive",
+    path = "Addictive.png",
+    px = 71,
+    py = 95
+}
+
+
 SMODS.Joker {
     key = 'lodog',
     loc_txt = {
@@ -149,7 +157,7 @@ SMODS.Joker {
     blueprint_compat = true,
     eternal_compat = true,
     perishable_compat = false,
-    atlas = 'PlaceHolder',
+    atlas = 'Addictive',
     pos = {x = 0, y = 0},
     cost = 5,
     unlocked = false,

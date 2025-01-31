@@ -9,7 +9,7 @@
 	"priority": 0,
 	"badge_colour": "FF230A",
 	"badge_text_colour": "ABC123",
-	"version": "0.0.1",
+	"version": "0.0.3",
 	"dependencies": [
         "Steamodded (>=1.*)"
     ]
