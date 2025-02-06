@@ -225,4 +225,30 @@ SMODS.Joker {
 }
 
 
---TODO, find out why custom jokers break Center when trying to make custom challenges(whatever that is?)
+SMODS.Joker { 
+
+    key='Siffrin',
+    loc_txt = {
+                name = "traumatized Time Traveler",
+                text = {"Allows {C:attention}Loop Cards{} to appear in {C:attention}Spectral Packs{}", "{C:inactive}This Joker currently does not function, sorry :({}"},
+                unlock = {
+                "Win a game on the", "{C:attention}Nebula Deck{}"
+                }
+            },
+
+    config = {extra = {}},
+        rarity = 3,
+        blueprint_compat = false,
+        eternal_compat = true,
+        perishable_compat = true,
+        atlas = 'PlaceHolder',
+        pos = {x = 0, y = 0},
+        cost = 10,
+        allow_duplicates = false,  
+        unlocked = false,
+        unlock_condition = {type = 'win_desk', deck = 'b_nebula'},     
+        
+        set_badges = function(self, card, badges)
+            badges[#badges+1] = create_badge('Cameo', G.C.RED, G.C.WHITE, 1.2 )
+        end,
+}
