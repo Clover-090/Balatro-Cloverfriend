@@ -246,9 +246,37 @@ SMODS.Joker {
         cost = 10,
         allow_duplicates = false,  
         unlocked = false,
-        unlock_condition = {type = 'win_desk', deck = 'b_nebula'},     
+        unlock_condition = {type = 'win_deck', deck = 'b_nebula'},     
         
         set_badges = function(self, card, badges)
-            badges[#badges+1] = create_badge('Cameo', G.C.RED, G.C.WHITE, 1.2 )
+            badges[#badges+1] = create_badge('ISAT', G.C.WHITE, G.C.BLACK, 1.2 )
+        end,
+}
+
+SMODS.Joker {
+
+    key='everythingsfine',
+    loc_txt = {
+                name = "Big Rock",
+                text = {"Gives +5 mult for each stone card scored"},
+                unlock = {
+                "Win a game on the", "{C:attention}Nebula Deck{}"
+                }
+            },
+
+    config = {extra = {Mult = 5}},
+        rarity = 1,
+        blueprint_compat = true,
+        eternal_compat = true,
+        perishable_compat = true,
+        atlas = 'PlaceHolder',
+        pos = {x = 0, y = 0},
+        cost = 3,
+        allow_duplicates = false,  
+        unlocked = false,
+        unlock_condition = {type = 'win_deck', deck = 'b_nebula'},     
+        
+        set_badges = function(self, card, badges)
+            badges[#badges+1] = create_badge('ISAT', G.C.WHITE, G.C.RED, 1.2 )
         end,
 }
