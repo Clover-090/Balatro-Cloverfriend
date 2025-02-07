@@ -26,6 +26,13 @@ SMODS.Atlas {
     py = 95
 }
 
+SMODS.Atlas {
+    key = "rock",
+    path ="Rock.png",
+    px = 71,
+    py = 95
+}
+
 
 SMODS.Joker {
     key = 'lodog',
@@ -188,11 +195,6 @@ SMODS.Joker {
                                     }
                                 end
                             end
-                        
-
-
-
-
 }
 
 
@@ -229,8 +231,8 @@ SMODS.Joker {
 
     key='Siffrin',
     loc_txt = {
-                name = "traumatized Time Traveler",
-                text = {"Allows {C:attention}Loop Cards{} to appear in {C:attention}Spectral Packs{}", "{C:inactive}This Joker currently does not function, sorry :({}"},
+                name = "Traumatized Time Traveler",
+                text = {"Allows {C:attention}Loop Cards{}", "to appear in {C:attention}Spectral Packs{}", "{C:inactive}This Joker currently does not function, sorry :({}"},
                 unlock = {
                 "Win a game on the", "{C:attention}Nebula Deck{}"
                 }
@@ -249,7 +251,7 @@ SMODS.Joker {
         unlock_condition = {type = 'win_deck', deck = 'b_nebula'},     
         
         set_badges = function(self, card, badges)
-            badges[#badges+1] = create_badge('ISAT', G.C.WHITE, G.C.BLACK, 1.2 )
+            badges[#badges+1] = create_badge('In Stars And Time', G.C.WHITE, G.C.BLACK, 1.2 )
         end,
 }
 
@@ -258,18 +260,18 @@ SMODS.Joker {
     key='everythingsfine',
     loc_txt = {
                 name = "Big Rock",
-                text = {"Gives +5 mult for each stone card scored"},
+                text = {"Gives {C:mult}+20{} Mult", "for each scored", "{C:attention}Stone Card", "{C:inactive}See guys? Everythings fi-{}"},
                 unlock = {
                 "Win a game on the", "{C:attention}Nebula Deck{}"
                 }
             },
 
-    config = {extra = {Mult = 5}},
+    config = { extra = { mult = 20 }},
         rarity = 1,
         blueprint_compat = true,
         eternal_compat = true,
         perishable_compat = true,
-        atlas = 'PlaceHolder',
+        atlas = 'rock',
         pos = {x = 0, y = 0},
         cost = 3,
         allow_duplicates = false,  
@@ -277,6 +279,21 @@ SMODS.Joker {
         unlock_condition = {type = 'win_deck', deck = 'b_nebula'},     
         
         set_badges = function(self, card, badges)
-            badges[#badges+1] = create_badge('ISAT', G.C.WHITE, G.C.RED, 1.2 )
+            badges[#badges+1] = create_badge('In Stars And Time', G.C.WHITE, G.C.BLACK, 1.2 )
         end,
+
+        loc_vars = function(self, info_queue, card)
+            return { vars = { card.ability.extra.mult} }
+        end,
+
+
+
+        calculate = function(self, card, context)
+            if context.individual and context.cardarea == G.play and context.other_card.ability.effect == 'Stone Card' then --Thanks RE:SPH balatro mod for helping me figure this one line of code out
+                return {
+                    mult_mod = card.ability.extra.mult,
+                    message = localize { type = 'variable', key = 'a_mult', vars = { card.ability.extra.mult } }
+                }
+            end 
+        end
 }
