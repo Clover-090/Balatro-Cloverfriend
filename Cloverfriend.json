@@ -1,9 +1,9 @@
 {
-	"id": "Cloverfriend",
+	"id": "Clover",
 	"name": "Cloverfriend",
 	"display_name": "Clover mod",
 	"author": ["Clover, Qrst"],
-	"description": "Heavy wip atm",
+	"description": "A mod that mainly adds jokers that refrence inside joker and embarassing things to mess with my friends, also adds jokers refrencing games",
 	"prefix": "clov",
 	"main_file": "main.lua",
 	"priority": 0,
