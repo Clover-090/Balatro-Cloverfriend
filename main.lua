@@ -1,3 +1,5 @@
+--config menu start
+
 local clov_config = SMODS.current_mod.config
 -- Code Borrowed From Cardsauce mod
 clov_enabled = copy_table(clov_config)
@@ -55,7 +57,10 @@ SMODS.current_mod.config_tab = function()
 	}
 end
 
+
+--end config menu stuffs
 --end code being borrowed from Cardsauce
+
 
 --Atlas defs start 
 SMODS.Atlas {
@@ -92,7 +97,7 @@ SMODS.Atlas {
     px = 71,
     py = 95
 }
---Atlas defs end 
+--Atlas defs end  
 
 SMODS.Joker {
     key = 'lodog',
@@ -147,8 +152,7 @@ SMODS.Joker {
                                 colour = G.C.Mult,
                                 card = card
                             }
-                            end
-                        
+                        end
                     end
                 end
             end
@@ -327,13 +331,13 @@ SMODS.Joker {
             },
 
     config = { extra = { mult = 20 }},
-        rarity = 1,
+        rarity = 2,
         blueprint_compat = true,
         eternal_compat = true,
         perishable_compat = true,
         atlas = 'rock',
         pos = {x = 0, y = 0},
-        cost = 3,
+        cost = 6,
         allow_duplicates = false,  
         unlocked = false,
         unlock_condition = {type = 'win_deck', deck = 'b_nebula'},     

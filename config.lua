@@ -1,5 +1,5 @@
 return{
-    [enableMoker] = true,
-    [enableLoker] = true,
-    [enableCameo] = true
+    ['enableMoker'] = true,
+    ['enableLoker'] = true,
+    ['enableCameo'] = true
 }
