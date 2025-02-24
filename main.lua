@@ -97,6 +97,13 @@ SMODS.Atlas {
     px = 71,
     py = 95
 }
+
+SMODS.Atlas {
+    key = "sifleg",
+    path ="PERDUUN.png",
+    px = 71,
+    py = 95
+}
 --Atlas defs end  
 
 SMODS.Joker {
@@ -293,22 +300,23 @@ SMODS.Joker {
 
 SMODS.Joker { 
 
-    key='Siffrin',
+    key='sifleg',
     loc_txt = {
-                name = "Traumatized Time Traveler",
-                text = {"Allows {C:attention}Loop Cards{}", "to appear in {C:attention}Spectral Packs{}", "{C:inactive}This Joker currently does not function, sorry :({}"},
+                name = "Perdu Un",
+                text = {"Retriggers played hand {C:attention}1{} time", "Increase retrigger count by using {C:attention}Loop Cards{}", "{C:inactive}This Joker currently does not function, sorry :({}"},
                 unlock = {
                 "Win a game on the", "{C:attention}Nebula Deck{}"
                 }
             },
 
     config = {extra = {}},
-        rarity = 3,
-        blueprint_compat = false,
+        rarity = 4,
+        blueprint_compat = true,
         eternal_compat = true,
         perishable_compat = true,
-        atlas = 'PlaceHolder',
-        pos = {x = 0, y = 0},
+        atlas = 'sifleg',
+        pos = {x = 1, y = 0},
+        soul_pos={x=0,y=0},
         cost = 10,
         allow_duplicates = false,  
         unlocked = false,
