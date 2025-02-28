@@ -172,7 +172,7 @@ SMODS.Joker {
         name = 'Hypothetical Joker',
         text = {
           "After each {C:attention}Boss Blind{}",
-          "spawn a {C:attention}negitive hanged man card" --This will change once I'm more knowlegeable of LUA
+          "spawn a {C:attention}negitive hanged man{} card" --This will change once I'm more knowlegeable of LUA
         },
         unlock = {
         'Win any stake on', '{C:attention}Checkered Deck{}'
@@ -253,7 +253,7 @@ SMODS.Joker {
         if context.joker_main then
         return {
             Xmult_mod = card.ability.extra.Xmult,
-            message = localize { type = 'variable', key = 'a_mult', vars = { card.ability.extra.Xmult } }
+            message = localize { type = 'variable', key = 'a_xmult', vars = { card.ability.extra.Xmult } }
         }
         end 
 
@@ -368,4 +368,19 @@ SMODS.Joker {
                 }
             end 
         end
+}
+
+SMODS.Consumable {
+    key = 'loopcard',
+    set = 'Spectral',
+    loc_txt = {
+        name = "Loop",
+        text = {"Start Again Start Again", "Start Again Start Again", "Start Again Start Again", "Start Again Start Again"}
+    },
+    hidden = true,
+    soul_rate = 0.3,
+    can_repeat_soul = true,
+    atlas = 'PlaceHolder',
+
+
 }
