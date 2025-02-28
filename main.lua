@@ -303,13 +303,13 @@ SMODS.Joker {
     key='sifleg',
     loc_txt = {
                 name = "Perdu Un",
-                text = {"Retriggers played hand {C:attention}1{} time", "Increase retrigger count by using {C:attention}Loop Cards{}", "{C:inactive}This Joker currently does not function, sorry :({}"},
+                text = {"Retriggers played hand {C:attention}1{} time", "Increase retrigger count by using {C:attention}Loop Cards{}", "{C:inactive}(Currently{} {C:mult}+#1#{} {C:inactive} Mult){}", "{C:inactive}Its time to{} {C:mult}Start Again{}"},
                 unlock = {
                 "Win a game on the", "{C:attention}Nebula Deck{}"
                 }
             },
 
-    config = {extra = {}},
+    config = {extra = {repetitions = 0}},
         rarity = 4,
         blueprint_compat = true,
         eternal_compat = true,
@@ -325,6 +325,21 @@ SMODS.Joker {
         set_badges = function(self, card, badges)
             badges[#badges+1] = create_badge('In Stars And Time', G.C.WHITE, G.C.BLACK, 1.2 )
         end,
+        loc_vars = function(self, info_queue, card)
+            return { vars = { card.ability.extra.repetitions} }
+        end,
+        add_to_deck = function(self, card)
+            G.GAME.pool_flags.loop_cards_appear = true
+        end,
+        calculate = function(self, card, context)
+            if context.cardarea == G.play and context.repetition and not context.repetition_only then
+                return {
+					message = 'Again!',
+					repetitions = card.ability.extra.repetitions,
+					card = context.other_card
+				}
+			end
+        end
 }
 
 SMODS.Joker {
@@ -381,6 +396,11 @@ SMODS.Consumable {
     soul_rate = 0.3,
     can_repeat_soul = true,
     atlas = 'PlaceHolder',
+    yes_pool_flag = 'loop_cards_appear',
+    set_badges = function(self, card, badges)
+        badges[#badges+1] = create_badge('In Stars And Time', G.C.WHITE, G.C.BLACK, 1.2 )
+    end,
+
 
 
 }
