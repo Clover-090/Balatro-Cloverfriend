@@ -60,8 +60,13 @@ end
 
 --end config menu stuffs
 --end code being borrowed from Cardsauce
-
-
+--[[
+if clov_enabled['enableMoker'] then
+    G.GAME.pool_flags.Mokers_appear = true
+else
+    G.GAME.pool_flags.Mokers_appear = false
+end
+]]--
 --Atlas defs start 
 SMODS.Atlas {
     key = "PlaceHolder",
@@ -179,6 +184,7 @@ SMODS.Joker {
         }
       },
     config = {extra = {}},
+    yes_pool_flag = 'Mokers_appear',
     rarity = 1,
     blueprint_compat = true,
     eternal_compat = true,
@@ -297,7 +303,7 @@ SMODS.Joker {
         end,
 }
 
-
+--[[
 SMODS.Joker { 
 
     key='sifleg',
@@ -340,7 +346,7 @@ SMODS.Joker {
 				}
 			end
         end
-}
+} ]]--
 
 SMODS.Joker {
 
@@ -384,7 +390,7 @@ SMODS.Joker {
             end 
         end
 }
-
+--[[
 SMODS.Consumable {
     key = 'loopcard',
     set = 'Spectral',
@@ -392,15 +398,15 @@ SMODS.Consumable {
         name = "Loop",
         text = {"Start Again Start Again", "Start Again Start Again", "Start Again Start Again", "Start Again Start Again"}
     },
+    config = {softlock = true},
     hidden = true,
-    soul_rate = 0.3,
+    soul_rate = 3,
     can_repeat_soul = true,
     atlas = 'PlaceHolder',
-    yes_pool_flag = 'loop_cards_appear',
     set_badges = function(self, card, badges)
         badges[#badges+1] = create_badge('In Stars And Time', G.C.WHITE, G.C.BLACK, 1.2 )
     end,
 
 
 
-}
+}]]--
