@@ -22,6 +22,27 @@ function G.FUNCS.clov_restart()
 	end
 end
 
+local start = Game.start_run
+function Game:start_run(args)
+	start(self, args)
+	if clov_enabled['enableMoker'] then
+        G.GAME.pool_flags.mokers_appear = true
+    else
+        G.GAME.pool_flags.mokers_appear = false
+    end
+
+    if clov_enabled['enableLoker'] then
+        G.GAME.pool_flags.lokers_appear = true
+    else
+        G.GAME.pool_flags.lokers_appear = false
+    end
+
+    if clov_enabled['enableCameo'] then
+        G.GAME.pool_flags.cameo_appear = true
+    else
+        G.GAME.pool_flags.cameo_appear = false
+    end
+end
 
 SMODS.current_mod.config_tab = function()
 	local ordered_config = {
@@ -55,18 +76,20 @@ SMODS.current_mod.config_tab = function()
 			clov_config_ui
 		}
 	}
-end
+    end
+
 
 
 --end config menu stuffs
 --end code being borrowed from Cardsauce
 --[[
 if clov_enabled['enableMoker'] then
-    G.GAME.pool_flags.Mokers_appear = true
+    G.GAME.pool_flags.mokers_appear = true
 else
-    G.GAME.pool_flags.Mokers_appear = false
+    G.GAME.pool_flags.mokers_appear = false
 end
 ]]--
+
 --Atlas defs start 
 SMODS.Atlas {
     key = "PlaceHolder",
@@ -128,6 +151,7 @@ SMODS.Joker {
       },
 
     config = { extra = { mult = 1, mult_gain = 10}},
+    yes_pool_flag = 'lokers_appear',
     rarity = 3,
     blueprint_compat = true,
     eternal_compat = true,
@@ -184,7 +208,7 @@ SMODS.Joker {
         }
       },
     config = {extra = {}},
-    yes_pool_flag = 'Mokers_appear',
+    yes_pool_flag = 'mokers_appear',
     rarity = 1,
     blueprint_compat = true,
     eternal_compat = true,
@@ -237,6 +261,7 @@ SMODS.Joker {
       },
 
     config = {extra = {Xmult = 1, Xmult_gain = 0.1}},
+    yes_pool_flag = 'lokers_appear',
     rarity = 3,
     blueprint_compat = true,
     eternal_compat = true,
@@ -298,9 +323,53 @@ SMODS.Joker {
         end,
         loc_vars = function(self, info_queue, card)
             card = card
-            info_queue[#info_queue + 1] = card:set_eternal(true)
+            card:set_eternal(true)
             
         end,
+}
+
+SMODS.Joker {
+
+    key='everythingsfine',
+    loc_txt = {
+                name = "Big Rock",
+                text = {"Gives {C:mult}+20{} Mult", "for each scored", "{C:attention}Stone Card", "{C:inactive}See guys? Everythings fi-{}"},
+                unlock = {
+                "Win a game on the", "{C:attention}Nebula Deck{}"
+                }
+            },
+
+    config = { extra = { mult = 20 }},
+    yes_pool_flag = 'cameo_appear',
+        rarity = 2,
+        blueprint_compat = true,
+        eternal_compat = true,
+        perishable_compat = true,
+        atlas = 'rock',
+        pos = {x = 0, y = 0},
+        cost = 6,
+        allow_duplicates = false,  
+        unlocked = false,
+        unlock_condition = {type = 'win_deck', deck = 'b_nebula'},     
+        
+        set_badges = function(self, card, badges)
+            badges[#badges+1] = create_badge('In Stars And Time', G.C.WHITE, G.C.BLACK, 1.2 )
+        end,
+
+        loc_vars = function(self, info_queue, card)
+            return { vars = { card.ability.extra.mult} }
+        end,
+
+
+
+        calculate = function(self, card, context)
+            if context.individual and context.cardarea == G.play and context.other_card.ability.effect == 'Stone Card' then --Thanks RE:SPH balatro mod for helping me figure this one line of code out
+                return {
+                    mult_mod = card.ability.extra.mult,
+                    message = localize { type = 'variable', key = 'a_mult', vars = { card.ability.extra.mult } }
+                }
+            end 
+        end
 }
 
 --[[
@@ -348,48 +417,6 @@ SMODS.Joker {
         end
 } ]]--
 
-SMODS.Joker {
-
-    key='everythingsfine',
-    loc_txt = {
-                name = "Big Rock",
-                text = {"Gives {C:mult}+20{} Mult", "for each scored", "{C:attention}Stone Card", "{C:inactive}See guys? Everythings fi-{}"},
-                unlock = {
-                "Win a game on the", "{C:attention}Nebula Deck{}"
-                }
-            },
-
-    config = { extra = { mult = 20 }},
-        rarity = 2,
-        blueprint_compat = true,
-        eternal_compat = true,
-        perishable_compat = true,
-        atlas = 'rock',
-        pos = {x = 0, y = 0},
-        cost = 6,
-        allow_duplicates = false,  
-        unlocked = false,
-        unlock_condition = {type = 'win_deck', deck = 'b_nebula'},     
-        
-        set_badges = function(self, card, badges)
-            badges[#badges+1] = create_badge('In Stars And Time', G.C.WHITE, G.C.BLACK, 1.2 )
-        end,
-
-        loc_vars = function(self, info_queue, card)
-            return { vars = { card.ability.extra.mult} }
-        end,
-
-
-
-        calculate = function(self, card, context)
-            if context.individual and context.cardarea == G.play and context.other_card.ability.effect == 'Stone Card' then --Thanks RE:SPH balatro mod for helping me figure this one line of code out
-                return {
-                    mult_mod = card.ability.extra.mult,
-                    message = localize { type = 'variable', key = 'a_mult', vars = { card.ability.extra.mult } }
-                }
-            end 
-        end
-}
 --[[
 SMODS.Consumable {
     key = 'loopcard',
