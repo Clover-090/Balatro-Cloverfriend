@@ -1,3 +1,73 @@
+--config menu start
+
+local clov_config = SMODS.current_mod.config
+-- Code Borrowed From Cardsauce mod
+clov_enabled = copy_table(clov_config)
+
+local function config_matching()
+	for k, v in pairs(clov_enabled) do
+		if v ~= clov_config[k] then
+			return false
+		end
+	end
+	return true
+end
+
+
+function G.FUNCS.clov_restart()
+	if config_matching() then
+		SMODS.full_restart = 0
+	else
+		SMODS.full_restart = 1
+	end
+end
+
+
+SMODS.current_mod.config_tab = function()
+	local ordered_config = {
+		'enableMoker',
+		'enableLoker',
+		'enableCameo',
+
+	}
+	local left_settings = { n = G.UIT.C, config = { align = "tm", padding = 0.05 }, nodes = {} }
+	local right_settings = { n = G.UIT.C, config = { align = "tm", padding = 0.05 }, nodes = {} }
+	for i, k in ipairs(ordered_config) do
+		if #right_settings.nodes < #left_settings.nodes then
+			right_settings.nodes[#right_settings.nodes + 1] = create_toggle({ label = localize("clov_options_"..ordered_config[i]), ref_table = clov_config, ref_value = ordered_config[i], callback = G.FUNCS.clov_restart})
+		else
+			left_settings.nodes[#left_settings.nodes + 1] = create_toggle({ label = localize("clov_options_"..ordered_config[i]), ref_table = clov_config, ref_value = ordered_config[i], callback = G.FUNCS.clov_restart})
+		end
+	end
+	local clov_config_ui = { n = G.UIT.R, config = { align = "tm", padding = 0 }, nodes = { left_settings, right_settings } }
+	return {
+		n = G.UIT.ROOT,
+		config = {
+			emboss = 0.05,
+			minh = 6,
+			r = 0.1,
+			minw = 10,
+			align = "cm",
+			padding = 0.05,
+			colour = G.C.BLACK,
+		},
+		nodes = {
+			clov_config_ui
+		}
+	}
+end
+
+
+--end config menu stuffs
+--end code being borrowed from Cardsauce
+--[[
+if clov_enabled['enableMoker'] then
+    G.GAME.pool_flags.Mokers_appear = true
+else
+    G.GAME.pool_flags.Mokers_appear = false
+end
+]]--
+--Atlas defs start 
 SMODS.Atlas {
     key = "PlaceHolder",
     path = "PlaceHolder.png",
@@ -26,6 +96,20 @@ SMODS.Atlas {
     py = 95
 }
 
+SMODS.Atlas {
+    key = "rock",
+    path ="Rock.png",
+    px = 71,
+    py = 95
+}
+
+SMODS.Atlas {
+    key = "sifleg",
+    path ="PERDUUN.png",
+    px = 71,
+    py = 95
+}
+--Atlas defs end  
 
 SMODS.Joker {
     key = 'lodog',
@@ -80,8 +164,7 @@ SMODS.Joker {
                                 colour = G.C.Mult,
                                 card = card
                             }
-                            end
-                        
+                        end
                     end
                 end
             end
@@ -94,13 +177,14 @@ SMODS.Joker {
         name = 'Hypothetical Joker',
         text = {
           "After each {C:attention}Boss Blind{}",
-          "spawn a {C:attention}negitive hanged man card" --This will change once I'm more knowlegeable of LUA
+          "spawn a {C:attention}negitive hanged man{} card" --This will change once I'm more knowlegeable of LUA
         },
         unlock = {
         'Win any stake on', '{C:attention}Checkered Deck{}'
         }
       },
     config = {extra = {}},
+    yes_pool_flag = 'Mokers_appear',
     rarity = 1,
     blueprint_compat = true,
     eternal_compat = true,
@@ -175,7 +259,7 @@ SMODS.Joker {
         if context.joker_main then
         return {
             Xmult_mod = card.ability.extra.Xmult,
-            message = localize { type = 'variable', key = 'a_mult', vars = { card.ability.extra.Xmult } }
+            message = localize { type = 'variable', key = 'a_xmult', vars = { card.ability.extra.Xmult } }
         }
         end 
 
@@ -188,11 +272,6 @@ SMODS.Joker {
                                     }
                                 end
                             end
-                        
-
-
-
-
 }
 
 
@@ -224,5 +303,110 @@ SMODS.Joker {
         end,
 }
 
+--[[
+SMODS.Joker { 
 
---TODO, find out why custom jokers break Center when trying to make custom challenges(whatever that is?)
+    key='sifleg',
+    loc_txt = {
+                name = "Perdu Un",
+                text = {"Retriggers played hand {C:attention}1{} time", "Increase retrigger count by using {C:attention}Loop Cards{}", "{C:inactive}(Currently{} {C:mult}+#1#{} {C:inactive} Mult){}", "{C:inactive}Its time to{} {C:mult}Start Again{}"},
+                unlock = {
+                "Win a game on the", "{C:attention}Nebula Deck{}"
+                }
+            },
+
+    config = {extra = {repetitions = 0}},
+        rarity = 4,
+        blueprint_compat = true,
+        eternal_compat = true,
+        perishable_compat = true,
+        atlas = 'sifleg',
+        pos = {x = 1, y = 0},
+        soul_pos={x=0,y=0},
+        cost = 10,
+        allow_duplicates = false,  
+        unlocked = false,
+        unlock_condition = {type = 'win_deck', deck = 'b_nebula'},     
+        
+        set_badges = function(self, card, badges)
+            badges[#badges+1] = create_badge('In Stars And Time', G.C.WHITE, G.C.BLACK, 1.2 )
+        end,
+        loc_vars = function(self, info_queue, card)
+            return { vars = { card.ability.extra.repetitions} }
+        end,
+        add_to_deck = function(self, card)
+            G.GAME.pool_flags.loop_cards_appear = true
+        end,
+        calculate = function(self, card, context)
+            if context.cardarea == G.play and context.repetition and not context.repetition_only then
+                return {
+					message = 'Again!',
+					repetitions = card.ability.extra.repetitions,
+					card = context.other_card
+				}
+			end
+        end
+} ]]--
+
+SMODS.Joker {
+
+    key='everythingsfine',
+    loc_txt = {
+                name = "Big Rock",
+                text = {"Gives {C:mult}+20{} Mult", "for each scored", "{C:attention}Stone Card", "{C:inactive}See guys? Everythings fi-{}"},
+                unlock = {
+                "Win a game on the", "{C:attention}Nebula Deck{}"
+                }
+            },
+
+    config = { extra = { mult = 20 }},
+        rarity = 2,
+        blueprint_compat = true,
+        eternal_compat = true,
+        perishable_compat = true,
+        atlas = 'rock',
+        pos = {x = 0, y = 0},
+        cost = 6,
+        allow_duplicates = false,  
+        unlocked = false,
+        unlock_condition = {type = 'win_deck', deck = 'b_nebula'},     
+        
+        set_badges = function(self, card, badges)
+            badges[#badges+1] = create_badge('In Stars And Time', G.C.WHITE, G.C.BLACK, 1.2 )
+        end,
+
+        loc_vars = function(self, info_queue, card)
+            return { vars = { card.ability.extra.mult} }
+        end,
+
+
+
+        calculate = function(self, card, context)
+            if context.individual and context.cardarea == G.play and context.other_card.ability.effect == 'Stone Card' then --Thanks RE:SPH balatro mod for helping me figure this one line of code out
+                return {
+                    mult_mod = card.ability.extra.mult,
+                    message = localize { type = 'variable', key = 'a_mult', vars = { card.ability.extra.mult } }
+                }
+            end 
+        end
+}
+--[[
+SMODS.Consumable {
+    key = 'loopcard',
+    set = 'Spectral',
+    loc_txt = {
+        name = "Loop",
+        text = {"Start Again Start Again", "Start Again Start Again", "Start Again Start Again", "Start Again Start Again"}
+    },
+    config = {softlock = true},
+    hidden = true,
+    soul_rate = 3,
+    can_repeat_soul = true,
+    atlas = 'PlaceHolder',
+    set_badges = function(self, card, badges)
+        badges[#badges+1] = create_badge('In Stars And Time', G.C.WHITE, G.C.BLACK, 1.2 )
+    end,
+
+
+
+}]]--
