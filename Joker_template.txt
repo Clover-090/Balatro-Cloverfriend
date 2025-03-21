@@ -10,6 +10,7 @@ SMODS.Joker {
             },
 
     config = {extra = {scaling_variables_here ex:Mult, Xmult, Chips}},
+    yes_pool_flag = 'pool_flag_here', <-- used for configs
         rarity = ?,
         blueprint_compat = ?,
         eternal_compat = ?,

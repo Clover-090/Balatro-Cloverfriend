@@ -42,13 +42,27 @@ function Game:start_run(args)
     else
         G.GAME.pool_flags.cameo_appear = false
     end
-end
+
+    if clov_enabled['enableCoker'] then
+        G.GAME.pool_flags.coker_appear = true
+    else
+        G.GAME.pool_flags.coker_appear = false
+    end
+
+--[[  if clov_enabled['enableMauroker'] then
+        G.GAME.pool_flags.maurokers_appear = true
+    else
+        G.GAME.pool_flags.maurokers_appear = false
+    end ]]--
+end  
 
 SMODS.current_mod.config_tab = function()
 	local ordered_config = {
 		'enableMoker',
 		'enableLoker',
 		'enableCameo',
+        'enableCoker',
+        --'enableMauroker'
 
 	}
 	local left_settings = { n = G.UIT.C, config = { align = "tm", padding = 0.05 }, nodes = {} }
@@ -121,16 +135,23 @@ SMODS.Atlas {
 
 SMODS.Atlas {
     key = "rock",
-    path ="Rock.png",
+    path = "Rock.png",
     px = 71,
     py = 95
 }
 
 SMODS.Atlas {
     key = "sifleg",
-    path ="PERDUUN.png",
+    path = "PERDUUN.png",
     px = 71,
     py = 95
+}
+
+SMODS.Atlas {
+    key = "antimatter",
+    path = "AntimaterJ.png",
+    px = 71,
+    py =95
 }
 --Atlas defs end  
 
@@ -142,7 +163,7 @@ SMODS.Joker {
           "Gains {C:mult}+10 Mult",
           "For each face card within",
           "a {C:attention}Two Pair{}",
-          "{C:inactive}(Currently {C:mult}+#1# {C:inactive} Mult",
+          "{C:inactive}(Currently {C:mult}+#1# {C:inactive} Mult)",
           "{C:inactive} Get them some Spare Trousers!"
         },
         unlock = {
@@ -201,7 +222,7 @@ SMODS.Joker {
         name = 'Hypothetical Joker',
         text = {
           "After each {C:attention}Boss Blind{}",
-          "spawn a {C:attention}negitive hanged man{} card" --This will change once I'm more knowlegeable of LUA
+          "spawn a {C:attention}negitive hanged man{} card" --This will change to a custom card once I'm more knowlegeable of LUA
         },
         unlock = {
         'Win any stake on', '{C:attention}Checkered Deck{}'
@@ -363,7 +384,7 @@ SMODS.Joker {
 
 
         calculate = function(self, card, context)
-            if context.individual and context.cardarea == G.play and context.other_card.ability.effect == 'Stone Card' then --Thanks RE:SPH balatro mod for helping me figure this one line of code out
+            if context.individual and context.cardarea == G.play and context.other_card.ability.effect == 'Stone Card' then --Thanks to the RE:SPH balatro mod for helping me figure this one line of code out because they basically have this card but for steels
                 return {
                     mult_mod = card.ability.extra.mult,
                     message = localize { type = 'variable', key = 'a_mult', vars = { card.ability.extra.mult } }
@@ -372,7 +393,51 @@ SMODS.Joker {
         end
 }
 
---[[
+SMODS.Joker {
+
+    key='antimatter',
+    loc_txt = {
+                name = "Antimatter Joker",
+                text = {"Gives {C:mult}+15{} Mult for each", "{C:attention}negative{} Joker"},
+                unlock = {
+                "Win a game on the", "{C:attention}Black Deck{}"
+                }
+            },
+
+    config = {extra = { mult = 15 }},
+        rarity = 2,
+        blueprint_compat = true,
+        eternal_compat = true,
+        perishable_compat = true,
+        atlas = 'antimatter',
+        pos = {x = 0, y = 0},
+        cost = 8,
+        allow_duplicates = false,  
+        unlocked = false,
+        unlock_condition = {type = 'win_deck', deck = 'b_black'},     
+        
+        set_badges = function(self, card, badges)
+            badges[#badges+1] = create_badge('Coker', G.C.GREEN, G.C.PURPLE, 1.2 )
+        end,
+
+        loc_vars = function(self, info_queue, card)
+            return { vars = { card.ability.extra.mult} }
+        end,
+
+        calculate = function(self, card, context)
+ 
+            if context.other_joker
+			and context.other_joker.edition
+            and context.other_joker.edition.negative == true then
+                return {
+                    mult_mod = card.ability.extra.mult,
+                    message = localize { type = 'variable', key = 'a_mult', vars = { card.ability.extra.mult } }
+                }
+            end 
+        end
+}
+
+--[[  I can't figure out how to get loop cards to only appear once the joker is bought, for now this joker is not active
 SMODS.Joker { 
 
     key='sifleg',

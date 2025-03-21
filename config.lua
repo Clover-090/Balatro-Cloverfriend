@@ -1,5 +1,7 @@
 return{
     ['enableMoker'] = true,
     ['enableLoker'] = true,
-    ['enableCameo'] = true
+    ['enableMauroker'] = true,
+    ['enableCameo'] = true,
+    ['enableCoker'] = true
 }
