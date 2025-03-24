@@ -49,11 +49,11 @@ function Game:start_run(args)
         G.GAME.pool_flags.coker_appear = false
     end
 
---[[  if clov_enabled['enableMauroker'] then
+    if clov_enabled['enableMauroker'] then
         G.GAME.pool_flags.maurokers_appear = true
     else
         G.GAME.pool_flags.maurokers_appear = false
-    end ]]--
+    end 
 end  
 
 SMODS.current_mod.config_tab = function()
@@ -62,7 +62,7 @@ SMODS.current_mod.config_tab = function()
 		'enableLoker',
 		'enableCameo',
         'enableCoker',
-        --'enableMauroker'
+        'enableMauroker'
 
 	}
 	local left_settings = { n = G.UIT.C, config = { align = "tm", padding = 0.05 }, nodes = {} }
@@ -93,16 +93,6 @@ SMODS.current_mod.config_tab = function()
     end
 
 
-
---end config menu stuffs
---end code being borrowed from Cardsauce
---[[
-if clov_enabled['enableMoker'] then
-    G.GAME.pool_flags.mokers_appear = true
-else
-    G.GAME.pool_flags.mokers_appear = false
-end
-]]--
 
 --Atlas defs start 
 SMODS.Atlas {
@@ -405,6 +395,7 @@ SMODS.Joker {
             },
 
     config = {extra = { mult = 15 }},
+    yes_pool_flag = 'enableCoker',
         rarity = 2,
         blueprint_compat = true,
         eternal_compat = true,
@@ -435,6 +426,53 @@ SMODS.Joker {
                 }
             end 
         end
+}
+
+SMODS.Joker{
+    key = 'thepark',
+    loc_txt = {
+        name = "8s under the bridge",
+        text = {"Triggers scoring played {C:attention}8{}s", "{C:attention}3{} additional times"},
+        unlock = {
+            "Win a game on the", "{C:attention}Yellow{} deck"
+        }   
+    },
+    config = {extra = { repetitions = 3 }},
+    yes_pool_flag = 'enableMauroker',
+        rarity = 1,
+        blueprint_compat = true,
+        eternal_compat = true,
+        perishable_compat = true,
+        atlas = 'PlaceHolder',
+        pos = {x = 0, y = 0},
+        cost = 5,
+        allow_duplicates = false,  
+        unlocked = false,
+        unlock_condition = {type = 'win_deck', deck = 'b_yellow'}, 
+
+        set_badges = function(self, card, badges)
+            badges[#badges+1] = create_badge('Mauroker', G.C.GREEN, G.C.PURPLE, 1.2 )
+        end,
+
+        loc_vars = function(self, info_queue, card)
+            return { vars = { card.ability.extra.repetitions} }
+        end,
+
+        calculate = function(self, card, context)
+            
+            if context.cardarea == G.play and context.repetition and not context.repetition_only then
+
+                if context.other_card:get_id() == 8 then
+                    return {
+                        message = 'Again!',
+                        repetitions = card.ability.extra.repetitions,
+                        
+                        card = context.other_card
+                    }
+                end
+            end
+        end
+
 }
 
 --[[  I can't figure out how to get loop cards to only appear once the joker is bought, for now this joker is not active
