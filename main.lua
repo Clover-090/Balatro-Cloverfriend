@@ -161,7 +161,7 @@ SMODS.Joker {
         }
       },
 
-    config = { extra = { mult = 1, mult_gain = 10}},
+    config = { extra = { mult = 0, mult_gain = 10}},
     yes_pool_flag = 'lokers_appear',
     rarity = 3,
     blueprint_compat = true,
@@ -451,7 +451,7 @@ SMODS.Joker{
         unlock_condition = {type = 'win_deck', deck = 'b_yellow'}, 
 
         set_badges = function(self, card, badges)
-            badges[#badges+1] = create_badge('Mauroker', G.C.GREEN, G.C.PURPLE, 1.2 )
+            badges[#badges+1] = create_badge('Mauroker', G.C.GREEN, G.C.YELLOW, 1.2 )
         end,
 
         loc_vars = function(self, info_queue, card)
@@ -531,7 +531,7 @@ SMODS.Consumable {
     config = {softlock = true},
     hidden = true,
     soul_rate = 3,
-    can_repeat_soul = true,
+    can_repeat_soul = true, -- will be changed later
     atlas = 'PlaceHolder',
     set_badges = function(self, card, badges)
         badges[#badges+1] = create_badge('In Stars And Time', G.C.WHITE, G.C.BLACK, 1.2 )
