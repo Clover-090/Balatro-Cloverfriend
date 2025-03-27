@@ -408,7 +408,7 @@ SMODS.Joker {
         unlock_condition = {type = 'win_deck', deck = 'b_black'},     
         
         set_badges = function(self, card, badges)
-            badges[#badges+1] = create_badge('Coker', G.C.GREEN, G.C.PURPLE, 1.2 )
+            badges[#badges+1] = create_badge('Cloker', G.C.GREEN, G.C.PURPLE, 1.2 )
         end,
 
         loc_vars = function(self, info_queue, card)
